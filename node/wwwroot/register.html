@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="./jquery.js"></script>
+    <style>
+          div{
+              width: 1370px;
+              height: 50px;
+              background-color: black;
+              position: relative;
+              color: #9E9E9E;
+              text-align: center;
+              line-height: 50px;
+              font-size: 20px;
+          }
+          span{
+              display: inline-block;
+              width: 50px;
+              font-size: 20px;
+              position: absolute;
+              
+          }
+          span:nth-of-type(1){
+              right: 600px;
+          }
+          span:nth-of-type(2){
+              left: 570px;
+          }
+          .input{
+              width: 600px;
+              height: 40px;
+              border-radius: 5px;
+              border: 2px solid #CDCDCD;
+          }
+          input,select{
+              margin: 10px 0;
+          }
+          form{
+              width: 600px;
+              margin: 0 auto;
+              padding: 5px;
+              /*border: 1px solid #000;*/
+          }
+          button{
+              background-color: #60BB5C;
+              color: white;
+          }
+    </style>
+</head>
+
+<body>
+    
+     <div>
+         <!--glyphicon glyphicon-plus-sign -->
+         
+         <span class="glyphicon glyphicon-chevron-left"></span>
+         注册
+         <span class="glyphicon glyphicon-home" ></span>
+     </div>
+     <form id="fm">
+         <input type="text" name="user" value="" placeholder="请填写六位以上帐号 " required  pattern="\S{6,}" class="input" id="us"><br>
+         <input type="password" name="psw" value="" placeholder="请填写六位以上密码" required pattern="\S{6,}" class="input" id="ps1"><br>
+         <input type="password"  value="" required placeholder="请再次填写密码" pattern="\S{6,}" class="input" id="ps2"><br>
+         <input type="radio" name="gender" value="true" checked="checked">先生<br>
+         <input type="radio" name="gender" value="false">女士<br>
+         <input type="text" name="yx" value="" placeholder="请填写邮箱" pattern="^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$" class="input" id="yx"><br>
+        <select name="type" class="input">
+        <option value="Android">Android</option>
+        <option value="IOS">IOS</option>
+    </select> 
+         <button type="button" class="input">提交</button>
+     </form>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script>
+      var pat1=/\S{6,}/;
+      var pat2=/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+      $('button').click(function(){
+        //   先判断两次密码是否一直
+        if($('#ps1').val()==$('#ps2').val()){
+                // 在判断格式是否正确
+                if(pat1.test($('#us').val())&&pat1.test($('#ps1').val())&&pat2.test($('#yx').val())){
+                      $.post('/register',$('#fm').serialize(),function(data){
+                           alert(data.message);
+                           if(data.message=='注册成功'){
+                            location.href='index.html'
+                    }
+                    })
+                }else{
+                  alert('请输入正确格式')
+                }
+
+        }else{
+            alert('两次密码不一致')
+        }
+
+      })
+      $('span').eq(1).click(function(){
+          location.href='index.html'
+      })
+
+    </script>
+</body>
+
+</html>
